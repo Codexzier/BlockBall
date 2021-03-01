@@ -6,7 +6,7 @@ var wasHit = false
 
 onready var collisionShape = $"BlockCollide"
 
-export var Number = 1
+export var Number = 0
 
 func _on_Area2D_body_entered(body):
 
@@ -18,3 +18,4 @@ func _on_Area2D_body_entered(body):
 		wasHit = true
 		get_node("BlockCollide").set_deferred("disabled", true)
 		emit_signal("number_was_hit", Number)
+		

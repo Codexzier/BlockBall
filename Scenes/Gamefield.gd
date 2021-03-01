@@ -19,7 +19,16 @@ onready var node_hud_punktestand = $"HUD/Punktestand"
 var start_position_player
 var start_position_ball
 
+# level scence
+var scene_level
+
 func _ready():
+		
+	scene_level = load("res://Scenes/Level_01.tscn").instance()
+	$Level_Objects/Blocks.add_child(scene_level)
+	scene_level.connect("level_complete", self, "_on_Level_01_level_complete")
+	scene_level.connect("block_was_hit", self, "_on_Level_block_was_hit")
+	
 	start_position_player = node_player.position
 	start_position_ball = node_ball.position
 	
@@ -76,14 +85,44 @@ func _on_Reset_Timer_timeout():
 	node_player.can_move = true
 	node_ball.can_move = true
 
-func _on_Ball_collision_bounce_block():
-	punktestand_player += 1
-	node_hud_punktestand.text = str(punktestand_player)
-	
-	if punktestand_player >= 32:
-		_set_reset()
-		$"HUD/Finish".visible = true
-		node_ball.visible = true
+#func _on_Ball_collision_bounce_block():
+#	punktestand_player += 1
+#	node_hud_punktestand.text = str(punktestand_player)
+#
+#	if punktestand_player >= 32:
+#		_set_reset()
+#		$"HUD/Finish".visible = true
+#		node_ball.visible = true
 	
 func _on_Start_timer_timeout():
 	node_timer.start()
+
+
+func _on_Level_01_level_complete():
+	_set_reset()
+	node_timer.start()
+	
+	# entlade level 1
+	scene_level.disconnect("level_complete", self, "_on_Level_01_level_complete")
+	scene_level.disconnect("block_was_hit", self, "_on_Level_block_was_hit")
+	$Level_Objects/Blocks.remove_child(scene_level)
+		
+	# lade level 2
+	scene_level = load("res://Scenes/Level_02.tscn").instance()
+	$Level_Objects/Blocks.add_child(scene_level)
+	scene_level.connect("level_complete", self, "_on_Level_02_level_complete")
+	scene_level.connect("block_was_hit", self, "_on_Level_block_was_hit")
+	
+func _on_Level_02_level_complete():
+	_set_reset()
+	$"HUD/Finish".visible = true
+	node_ball.visible = false
+	
+func _on_Level_block_was_hit(n):
+	punktestand_player += 1
+	node_hud_punktestand.text = str(punktestand_player)
+	
+#	if punktestand_player >= 32:
+#		_set_reset()
+#		$"HUD/Finish".visible = true
+#		node_ball.visible = true
