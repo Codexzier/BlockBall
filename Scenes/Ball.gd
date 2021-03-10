@@ -29,3 +29,7 @@ func _physics_process(delta):
 				
 				if str(collison_info.collider.name).begins_with("Block"):
 					emit_signal("collision_bounce_block")
+
+
+func resetMovement():
+	movement = Vector2(0, speed)

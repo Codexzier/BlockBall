@@ -15,5 +15,5 @@ func _on_Block_number_was_hit(n):
 	
 	print_debug(str(count))
 	
-	if count >= 22:
+	if count >= 21:
 		emit_signal("level_complete")

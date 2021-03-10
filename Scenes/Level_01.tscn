@@ -22,7 +22,7 @@ position = Vector2( 608, 64 )
 position = Vector2( 560, 64 )
 
 [node name="Block6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 512, 72 )
+position = Vector2( 512, 64 )
 
 [node name="Block7" parent="." instance=ExtResource( 1 )]
 position = Vector2( 464, 64 )

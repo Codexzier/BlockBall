@@ -80,6 +80,7 @@ func _set_reset():
 	
 	node_player.can_move = false
 	node_ball.can_move = false
+	$Game_Objects/Ball.resetMovement()
 
 func _on_Reset_Timer_timeout():
 	node_player.can_move = true
